@@ -1,0 +1,7 @@
+{
+  "name": "Intelligence v4.0 - Omni-Core",
+  "description": "A civilization-scale strategic intelligence core integrating recursive simulation, cross-domain synthesis, and predictive execution.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}

@@ -1,0 +1,194 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智力 v4.0 - 萬能核心</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Accessible Color Palette (Dark Mode Optimized) */
+            --bg-base: #020617; /* Deep Slate Blue-Black */
+            --bg-surface: #0f172a;
+            --accent-primary: #818cf8; /* Indigo 400 - High legibility on dark */
+            --accent-secondary: #2dd4bf; /* Teal 400 - High legibility on dark */
+            --text-primary: #f8fafc; /* Slate 50 */
+            --text-secondary: #94a3b8; /* Slate 400 - WCAG AA compliant on bg-base */
+            --text-muted: #64748b; /* Slate 500 - for decorative text only */
+            --border-subtle: rgba(148, 163, 184, 0.12); /* Slate 400 at 12% */
+            --glass-bg: rgba(15, 23, 42, 0.75);
+            --ring-focus: rgba(129, 140, 248, 0.5);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Sophisticated Grain Overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3BaseFilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/baseFilter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.015;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        /* Dynamic Background Glow */
+        .omni-glow-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: 
+                radial-gradient(circle at 50% -20%, rgba(129, 140, 248, 0.12) 0%, transparent 60%),
+                radial-gradient(circle at -10% 100%, rgba(45, 212, 191, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Typography & Markdown Rendering */
+        .prose-omega h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.25rem;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, #fff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 2.5rem 0 1.25rem;
+        }
+
+        .prose-omega h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin: 2rem 0 1rem;
+            border-bottom: 1px solid var(--border-subtle);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .prose-omega h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #fff;
+            margin-top: 1.5rem;
+        }
+
+        .prose-omega p {
+            line-height: 1.75;
+            margin-bottom: 1.5rem;
+            color: #e2e8f0; /* Slate 200 */
+        }
+
+        .prose-omega strong {
+            color: var(--accent-primary);
+            font-weight: 700;
+        }
+
+        /* Premium Code Blocks */
+        pre {
+            background: #020617;
+            border: 1px solid var(--border-subtle);
+            padding: 1.75rem;
+            border-radius: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            margin: 1.5rem 0;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5), 0 10px 30px rgba(0,0,0,0.4);
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background: rgba(129, 140, 248, 0.15);
+            color: #c7d2fe;
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.375rem;
+            font-size: 0.9em;
+        }
+
+        /* Glassmorphism Classes */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(129, 140, 248, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* Enhanced Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { 
+            background: rgba(255, 255, 255, 0.08); 
+            border-radius: 20px;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.15); }
+
+        /* Smooth Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        .float-animation {
+            animation: float 5s ease-in-out infinite;
+        }
+
+        .focus-ring:focus-within {
+            box-shadow: 0 0 0 2px var(--ring-focus);
+            outline: none;
+        }
+
+        /* Utility Helpers */
+        .text-gradient {
+            background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.34.0"
+  }
+}
+</script>
+</head>
+<body class="relative">
+    <div id="root"></div>
+    <div class="omni-glow-bg"></div>
+</body>
+</html>
